@@ -1,9 +1,16 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 
-function LoginWrapper() {
+export default function LoginWrapper() {
+  const { data: session } = useSession();
+
+  if (session && session.user) {
+    return <LogoutButton />;
+  }
+
   return (
     <div className="space-x-10">
       <LoginButton />
@@ -11,5 +18,3 @@ function LoginWrapper() {
     </div>
   );
 }
-
-export default LoginWrapper;
