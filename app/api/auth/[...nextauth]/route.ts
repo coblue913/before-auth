@@ -3,6 +3,7 @@
  */
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import KakaoProvider from 'next-auth/providers/kakao';
 
 const handler = NextAuth({
   providers: [
@@ -39,6 +40,11 @@ const handler = NextAuth({
         return null;
       },
     }),
+
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID!,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -50,9 +56,9 @@ const handler = NextAuth({
       return session;
     },
   },
-  pages: {
-    signIn: '/login',
-  },
+  // pages: {
+  //   signIn: '/login',
+  // },
 });
 
 // as ?로 export 하는 모듈의 이름을 지정할 수 있음
