@@ -1,14 +1,14 @@
 'use client';
 
-function LogoutButton() {
+import { signOut } from 'next-auth/react';
+
+export default function LogoutButton(session: any | null) {
   return (
     <button
       className="rounded-xl border bg-black-300 px-12 py-4"
-      onClick={() => logout()}
+      onClick={() => signOut()}
     >
       로그아웃
     </button>
   );
 }
-
-export default LogoutButton;
