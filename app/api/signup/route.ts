@@ -1,4 +1,5 @@
 import prisma from "@/app/lib/prisma";
+import * as bcrypt from 'bcrypt';
 
 interface RequestBody {
   name: string;
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
     data: {
       name: body.name,
       email: body.email,
-      password: body.password,
+      password: await bcrypt.hash(body.password, 10),
     },
   });
 
