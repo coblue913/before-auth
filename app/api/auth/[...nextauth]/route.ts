@@ -31,6 +31,7 @@ const handler = NextAuth({
 
         // TODO: DB 에서 username 을 찾고 비밀번호가 맞는지 체크
         const user = await res.json();
+        console.log(user);
 
         if (user) {
           return user;
@@ -48,6 +49,9 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
+  },
+  pages: {
+    signIn: '/login',
   },
 });
 
