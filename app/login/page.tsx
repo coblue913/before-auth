@@ -92,12 +92,18 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div>
+      <div className="space-y-4">
         <button
           className="w-full transform rounded-md bg-gray-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
           onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
-          kakao login
+          카카오로 로그인
+        </button>
+        <button
+          className="w-full transform rounded-md bg-gray-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
+          onClick={() => signIn('naver', { redirect: true, callbackUrl: '/' })}
+        >
+          네이버로 로그인
         </button>
       </div>
     </main>
