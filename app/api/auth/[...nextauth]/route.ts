@@ -3,6 +3,7 @@
  */
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import KakaoProvider from 'next-auth/providers/kakao';
 
 const handler = NextAuth({
   providers: [
@@ -31,12 +32,18 @@ const handler = NextAuth({
 
         // TODO: DB 에서 username 을 찾고 비밀번호가 맞는지 체크
         const user = await res.json();
+        console.log(user);
 
         if (user) {
           return user;
         }
         return null;
       },
+    }),
+
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID!,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
@@ -48,6 +55,9 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
+  },
+  pages: {
+    signIn: '/login',
   },
 });
 
