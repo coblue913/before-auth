@@ -56,9 +56,9 @@ const handler = NextAuth({
       return session;
     },
   },
-  // pages: {
-  //   signIn: '/login',
-  // },
+  pages: {
+    signIn: '/login',
+  },
 });
 
 // as ?로 export 하는 모듈의 이름을 지정할 수 있음

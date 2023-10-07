@@ -1,8 +1,18 @@
 'use client';
-import { SignInResponse, signIn } from 'next-auth/react';
-import { MutableRefObject, useRef } from 'react';
+import { SignInResponse, getProviders, signIn } from 'next-auth/react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 export default function LoginPage() {
+  const [providers, setProviders] = useState(null);
+
+  useEffect(() => {
+    async () => {
+      const res: any = await getProviders();
+      console.log(res);
+      setProviders(res);
+    };
+  }, []);
+
   const emailRef: MutableRefObject<null> = useRef(null);
   const passwordRef: MutableRefObject<null> = useRef(null);
 
@@ -13,6 +23,13 @@ export default function LoginPage() {
     const result: SignInResponse | undefined = await signIn('credentials', {
       username: emailRef.current,
       password: passwordRef.current,
+      redirect: true,
+      callbackUrl: '/',
+    });
+  };
+
+  const handleKakao = async () => {
+    const result = await signIn('kakao', {
       redirect: true,
       callbackUrl: '/',
     });
@@ -73,6 +90,15 @@ export default function LoginPage() {
             로그인
           </button>
         </div>
+      </div>
+
+      <div>
+        <button
+          className="w-full transform rounded-md bg-gray-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
+          onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
+        >
+          kakao login
+        </button>
       </div>
     </main>
   );
