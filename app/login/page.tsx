@@ -1,13 +1,21 @@
 'use client';
-import { useRef } from 'react';
+import { SignInResponse, signIn } from 'next-auth/react';
+import { MutableRefObject, useRef } from 'react';
 
 export default function LoginPage() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const emailRef: MutableRefObject<null> = useRef(null);
+  const passwordRef: MutableRefObject<null> = useRef(null);
 
   const handleSubmit: () => Promise<void> = async (): Promise<void> => {
     console.log(`username: ${emailRef.current}`);
     console.log(`password: ${passwordRef.current}`);
+
+    const result: SignInResponse | undefined = await signIn('credentials', {
+      username: emailRef.current,
+      password: passwordRef.current,
+      redirect: true,
+      callbackUrl: '/',
+    });
   };
 
   return (
